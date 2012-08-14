@@ -25,7 +25,7 @@ Forth, write the config file. The config file called 'keywords.conf'. Syntax and
 
 Fifth, run the script with no parameter. Your new Bookmark will write to standard output, you should use data stream redirection to redirect them to a file.
 
-Sixth, copy this file back to the chrome config folder, and rename it back to "Bookmarks", restart Chrome, them you can see your new Bookmarks!
+Sixth, copy this file back to the chrome config folder, and rename it back to "Bookmarks", restart Chrome, then you can see your new Bookmarks!
 
 I got an error, it not works:
 ------------------------------
