@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import json
 import re
 import sys
@@ -33,8 +34,11 @@ def will_move(web_page_name):
 
     return value is a tuple, first item in tuple means matched or not, 
     second one is a path, means if match, the web pages will move into it. '''
-    config_file = open("keywords.conf").read()
-    keywords = json.loads(config_file)
+    try:
+        config_file = open("keywords.conf").read()
+        keywords = json.loads(config_file)
+    except:
+        raise SyntaxError('Invalid config file')
     for i in keywords.keys():
         if re.search(i, web_page_name):
             return (True, keywords[i])
@@ -98,20 +102,25 @@ def move(dic, source, dest):
                 return lst.index(i)
 
     import copy
+    
     source = string_to_lst(source)
     source = convert_name(source)
     source = replace_all_name_to_index(dic, source)
-
-    cmd = list_to_index(source)
-    tmp3 = copy.deepcopy(eval(cmd))
-    exec('del ' + cmd, locals())
-
+    
     dest = string_to_lst(dest)
     dest = convert_name(dest)
     dest = replace_all_name_to_index(dic, dest)
 
-    cmd = list_to_index(dest)
-    exec(cmd + '.append(tmp3)', locals())
+    source_dict = list_to_index(source)
+    dest_list = list_to_index(dest)
+    
+    tmp = copy.deepcopy(eval(source_dict))
+    
+    try:
+        exec(dest_list + '.append(tmp)', locals())
+    except:
+        raise NameError('Folder is not exist')
+    exec('del ' + source_dict, locals())
 
     return dic
 
@@ -123,8 +132,15 @@ for i, j in traverse(a['roots']['bookmark_bar']['children']):
     pages.append(j)
 
 for i in pages:
-    if will_move(i)[0]:
-        move(a, i, will_move(i)[1])
+    try:
+        if will_move(i)[0]:
+            move(a, i, will_move(i)[1])
+    except NameError as e:
+            print(e)
+            print('Warning: "%s" is not exist, skipped web page "%s"' % (will_move(i)[1], i), file=sys.stderr)
+    except SyntaxError as e:
+            print('Error: %s.' % e, file=sys.stderr)
+            sys.exit(1)
 
 b = json.dumps(a)
 print(b)
