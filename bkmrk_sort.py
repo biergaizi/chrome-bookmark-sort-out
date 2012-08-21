@@ -49,7 +49,6 @@ def move(dic, source, dest):
     '''Move a web page from source to dest,'''
     def convert_name(list):
        '''Convert lots of '/;' in a list of paths to their "real" name in JSON.'''
-
         if list[0] == '/;':
             list[0] = 'roots'
         for index, value in enumerate(list):
