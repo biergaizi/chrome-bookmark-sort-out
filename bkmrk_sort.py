@@ -48,6 +48,8 @@ def will_move(web_page_name):
 def move(dic, source, dest):
     '''Move a web page from source to dest,'''
     def convert_name(list):
+    '''Convert lots of '/;' in a list of paths to their "real" name in JSON.'''
+
         if list[0] == '/;':
             list[0] = 'roots'
         for index, value in enumerate(list):
@@ -55,7 +57,8 @@ def move(dic, source, dest):
                 list[index] = 'children'
         return list
 
-    def replace_all_name_to_index(dic, list):
+    def replace_all_name_to_index(list):
+        '''Replace a children's name to its "real" index number of the list "children".'''
         for index, value in enumerate(list):
             if list[index] == 'children':
                 try:
@@ -69,6 +72,7 @@ def move(dic, source, dest):
         return list
 
     def list_to_index(list):
+        '''Convert the list of paths to indexs of a dictionary'''
         dic = 'dic'
         for i in list:
             try:
@@ -78,6 +82,7 @@ def move(dic, source, dest):
         return dic
 
     def string_to_lst(string):
+        '''Convert a string of path to a readable list.'''
         tmp = []
         tmp_paths = ''
         for i, j in enumerate(string):
@@ -97,6 +102,7 @@ def move(dic, source, dest):
         return tmp
 
     def get_id(lst, name):
+        '''Search a index number of a children by name'''
         for i in lst:
             if i['name'] == name:
                 return lst.index(i)
@@ -105,11 +111,11 @@ def move(dic, source, dest):
     
     source = string_to_lst(source)
     source = convert_name(source)
-    source = replace_all_name_to_index(dic, source)
+    source = replace_all_name_to_index(source)
     
     dest = string_to_lst(dest)
     dest = convert_name(dest)
-    dest = replace_all_name_to_index(dic, dest)
+    dest = replace_all_name_to_index(dest)
 
     source_dict = list_to_index(source)
     dest_list = list_to_index(dest)
