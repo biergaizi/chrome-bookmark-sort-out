@@ -131,13 +131,13 @@ pages = []
 for i, j in traverse(a['roots']['bookmark_bar']['children']):
     pages.append(j)
 
-for i in pages:
+for index, value in enumerate(pages):
     try:
-        if will_move(i)[0]:
-            move(a, i, will_move(i)[1])
+        if will_move(value)[0]:
+            a = move(a, value, will_move(value)[1])
     except NameError as e:
             print(e)
-            print('Warning: "%s" is not exist, skipped web page "%s"' % (will_move(i)[1], i), file=sys.stderr)
+            print('Warning: "%s" is not exist, skipped web page "%s"' % (will_move(value)[1], value), file=sys.stderr)
     except SyntaxError as e:
             print('Error: %s.' % e, file=sys.stderr)
             sys.exit(1)
