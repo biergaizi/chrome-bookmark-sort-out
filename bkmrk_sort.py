@@ -56,7 +56,7 @@ def move(dic, source, dest):
                 list[index] = 'children'
         return list
 
-    def replace_all_name_to_index(list):
+    def replace_all_name_to_index(dic, list):
         '''Replace a children's name to its "real" index number of the list "children".'''
         for index, value in enumerate(list):
             if list[index] == 'children':
@@ -110,11 +110,11 @@ def move(dic, source, dest):
     
     source = string_to_lst(source)
     source = convert_name(source)
-    source = replace_all_name_to_index(source)
+    source = replace_all_name_to_index(dic, source)
     
     dest = string_to_lst(dest)
     dest = convert_name(dest)
-    dest = replace_all_name_to_index(dest)
+    dest = replace_all_name_to_index(dic, dest)
 
     source_dict = list_to_index(source)
     dest_list = list_to_index(dest)
