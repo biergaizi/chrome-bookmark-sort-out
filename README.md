@@ -2,6 +2,7 @@ chrome-bookmark-sort-out
 =========================
 
 Sort out your Bookmarks by the keywords/regular expressions for Chrome/Chromium.
+Copyright: GPL v3 or later.
 
 What can it do?
 ---------------
